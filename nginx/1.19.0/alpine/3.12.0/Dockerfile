@@ -132,6 +132,7 @@ RUN set -x \
          --with-http_ssl_module \
          --with-http_stub_status_module \
          --with-http_sub_module \
+				 --with-stream \
          --with-ipv6 \
          --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' \
          --with-pcre-jit \
