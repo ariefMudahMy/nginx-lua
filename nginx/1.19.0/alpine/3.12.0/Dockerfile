@@ -40,6 +40,10 @@ ENV VER_NGINX 1.19.0
 # The NDK is now considered to be stable.
 ENV VER_NGX_DEVEL_KIT 0.3.1
 
+# https://github.com/knyar/nginx-lua-prometheus
+# prometheus.lua for metric monitoring
+ENV VER_PROM_LUA 0.20200523
+
 ENV LUAJIT_LIB /usr/local/lib
 ENV LUAJIT_INC /usr/local/include/luajit-2.1
 
@@ -85,6 +89,12 @@ RUN set -x \
 # ##############################################################################
    && wget https://github.com/openresty/lua-nginx-module/archive/v${VER_LUA_NGINX_MODULE}.tar.gz -O /lua-nginx.tar.gz \
       && tar xvzf /lua-nginx.tar.gz && rm /lua-nginx.tar.gz \
+# Prometheus Lua Module
+# ##############################################################################
+   && wget https://github.com/knyar/nginx-lua-prometheus/archive/${VER_PROM_LUA}.tar.gz -O /prom-lua.tar.gz \
+      && tar xvzf /prom-lua.tar.gz \
+      && mv nginx-lua-prometheus-${VER_PROM_LUA}/prometheus.lua nginx-lua-prometheus-${VER_PROM_LUA}/prometheus_keys.lua nginx-lua-prometheus-${VER_PROM_LUA}/prometheus_resty_counter.lua ${LUA_LIB_DIR}/ \
+      && rm -rf /prom-lua* \
 # NGINX OFFICIAL DOCKERFILE COMMANDS
 # ##############################################################################
 # create nginx user/group first, to be consistent throughout docker variants
