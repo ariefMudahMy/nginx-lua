@@ -1,6 +1,5 @@
 FROM fedora:30
 
-MAINTAINER Fabio Cicerchia <info@fabiocicerchia.it>
 LABEL maintainer="info@fabiocicerchia.it"
 
 ARG BUILD_DATE
@@ -40,6 +39,9 @@ ENV VER_NGINX 1.17.10
 # The NDK is now considered to be stable.
 ENV VER_NGX_DEVEL_KIT 0.3.1
 
+# https://github.com/Yelp/dumb-init
+ENV VER_DUMBINIT 1.2.2
+
 ENV LUAJIT_LIB /usr/local/lib
 ENV LUAJIT_INC /usr/local/include/luajit-2.1
 ENV LD_LIBRARY_PATH /usr/local/lib/:$LD_LIBRARY_PATH
@@ -57,10 +59,9 @@ RUN set -x \
       gzip \
       make \
       tar \
-      wget \
 # OpenResty LUAJIT2
 # ##############################################################################
-   && wget https://github.com/openresty/luajit2/archive/v${VER_LUAJIT}.tar.gz -O /luajit.tar.gz \
+   && curl -Lo /luajit.tar.gz https://github.com/openresty/luajit2/archive/v${VER_LUAJIT}.tar.gz \
       && tar xvzf /luajit.tar.gz && rm /luajit.tar.gz \
       && cd /luajit2-${VER_LUAJIT} \
       && make -j $(nproc) \
@@ -68,7 +69,7 @@ RUN set -x \
       && cd / \
 # LUA Resty Core
 # ##############################################################################
-   && wget https://github.com/openresty/lua-resty-core/archive/v${VER_LUA_RESTY_CORE}.tar.gz -O /lua-resty-core.tar.gz \
+   && curl -Lo /lua-resty-core.tar.gz https://github.com/openresty/lua-resty-core/archive/v${VER_LUA_RESTY_CORE}.tar.gz \
       && tar xvzf /lua-resty-core.tar.gz && rm /lua-resty-core.tar.gz \
       && cd /lua-resty-core-${VER_LUA_RESTY_CORE} \
       && make -j $(nproc) \
@@ -76,7 +77,7 @@ RUN set -x \
       && cd / \
 # LUA Resty LRUCache
 # ##############################################################################
-   && wget https://github.com/openresty/lua-resty-lrucache/archive/v${VER_LUA_RESTY_LRUCACHE}.tar.gz -O /lua-resty-lrucache.tar.gz \
+   && curl -Lo /lua-resty-lrucache.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${VER_LUA_RESTY_LRUCACHE}.tar.gz \
       && tar xvzf /lua-resty-lrucache.tar.gz && rm /lua-resty-lrucache.tar.gz \
       && cd /lua-resty-lrucache-${VER_LUA_RESTY_LRUCACHE} \
       && make -j $(nproc) \
@@ -84,21 +85,21 @@ RUN set -x \
       && cd / \
 # NGX Devel Kit
 # ##############################################################################
-   && wget https://github.com/vision5/ngx_devel_kit/archive/v${VER_NGX_DEVEL_KIT}.tar.gz -O /ngx_devel_kit.tar.gz \
+   && curl -Lo /ngx_devel_kit.tar.gz https://github.com/vision5/ngx_devel_kit/archive/v${VER_NGX_DEVEL_KIT}.tar.gz \
       && tar xvzf /ngx_devel_kit.tar.gz && rm /ngx_devel_kit.tar.gz \
 # Lua Nginx Module
 # ##############################################################################
-   && wget https://github.com/openresty/lua-nginx-module/archive/v${VER_LUA_NGINX_MODULE}.tar.gz -O /lua-nginx.tar.gz \
+   && curl -Lo /lua-nginx.tar.gz https://github.com/openresty/lua-nginx-module/archive/v${VER_LUA_NGINX_MODULE}.tar.gz \
       && tar xvzf /lua-nginx.tar.gz && rm /lua-nginx.tar.gz \
 # NGINX
 # ##############################################################################
 # create nginx user/group first, to be consistent throughout docker variants
-   && groupadd --system --gid 1001 nginx \
-   && useradd --system --gid nginx --no-create-home --home /nonexistent --comment "nginx user" --shell /bin/false --uid 1001 nginx \
+   && groupadd --system --gid 32548 nginx \
+   && useradd --system --gid nginx --no-create-home --home /nonexistent --comment "nginx user" --shell /bin/false --uid 32548 nginx \
    && yum makecache \
 # we're on an architecture upstream doesn't officially build for
 # let's build binaries from the published packaging sources
-      && wget https://nginx.org/download/nginx-${VER_NGINX}.tar.gz -O /nginx.tar.gz \
+      && curl -Lo /nginx.tar.gz https://nginx.org/download/nginx-${VER_NGINX}.tar.gz \
       && tar xvzf /nginx.tar.gz && rm /nginx.tar.gz \
       && cd /nginx-${VER_NGINX} \
       && mkdir -p /var/cache/nginx/client_temp \
@@ -162,6 +163,16 @@ RUN set -x \
 # forward request and error logs to docker log collector
    && ln -sf /dev/stdout /var/log/nginx/access.log \
    && ln -sf /dev/stderr /var/log/nginx/error.log \
+# UID & GID
+# ##############################################################################
+   && chown -R 32548:32548 \
+      /etc/nginx \
+      /lua-nginx-module-${VER_LUA_NGINX_MODULE} \
+      /ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
+      /var/log/nginx \
+# dumb-init
+# ##############################################################################
+   && yum install -y dumb-init \
 # Cleanup
 # ##############################################################################
    && rm -rf /lua-nginx-module-${VER_LUA_NGINX_MODULE} \
@@ -171,16 +182,20 @@ RUN set -x \
    && rm -rf /nginx-${VER_NGINX} \
    && rm -rf /ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
    && yum clean all \
+   && rm -rf /var/cache/yum \
    && yum remove -y \
       gcc-c++ \
-      make \
-      wget
+      make
 
 HEALTHCHECK --interval=30s --timeout=3s CMD curl --fail http://localhost/ || exit 1
+
+USER nginx
 
 EXPOSE 80
 EXPOSE 443
 
 STOPSIGNAL SIGTERM
+
+ENTRYPOINT ["dumb-init"]
 
 CMD ["nginx", "-g", "daemon off;"]
