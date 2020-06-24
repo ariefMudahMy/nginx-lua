@@ -10,7 +10,7 @@ ARG VCS_REF
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.name="fabiocicerchia/nginx-lua"
-LABEL org.label-schema.description="Nginx 1.19.0 with LUA support based on Amazon Linux 2.0.20200406.0."
+LABEL org.label-schema.description="Nginx 1.19.0 with LUA support based on amazonlinux 2.0.20200406.0."
 LABEL org.label-schema.url="https://github.com/fabiocicerchia/nginx-lua"
 LABEL org.label-schema.vcs-url="https://github.com/fabiocicerchia/nginx-lua"
 LABEL org.label-schema.vcs-ref=$VCS_REF
@@ -52,6 +52,7 @@ RUN set -x \
       openssl-devel \
       pcre-devel \
       zlib-devel \
+      shadow-utils \
    && yum install -y \
       gcc-c++ \
       gzip \
@@ -92,33 +93,66 @@ RUN set -x \
       && tar xvzf /lua-nginx.tar.gz && rm /lua-nginx.tar.gz \
 # NGINX
 # ##############################################################################
+# create nginx user/group first, to be consistent throughout docker variants
+   && addgroup -g 1001 -S nginx \
+   && adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
    && yum makecache \
 # we're on an architecture upstream doesn't officially build for
 # let's build binaries from the published packaging sources
       && wget https://nginx.org/download/nginx-${VER_NGINX}.tar.gz -O /nginx.tar.gz \
       && tar xvzf /nginx.tar.gz && rm /nginx.tar.gz \
       && cd /nginx-${VER_NGINX} \
+      && mkdir -p /var/cache/nginx/client_temp \
+         /var/cache/nginx/proxy_temp \
+         /var/cache/nginx/fastcgi_temp \
+         /var/cache/nginx/uwsgi_temp \
+         /var/cache/nginx/scgi_temp \
       && ./configure \
-         --add-module=/lua-nginx-module-${VER_LUA_NGINX_MODULE} \
-         --add-module=/ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
+         --prefix=/etc/nginx \
+         --sbin-path=/usr/sbin/nginx \
+         --modules-path=/usr/lib/nginx/modules \
          --conf-path=/etc/nginx/nginx.conf \
          --error-log-path=/var/log/nginx/error.log \
          --http-log-path=/var/log/nginx/access.log \
-         --lock-path=/var/lock/nginx.lock \
-         --pid-path=/run/nginx.pid \
-         --prefix=/usr/share/nginx \
-         --sbin-path=/usr/sbin/nginx \
+         --pid-path=/var/run/nginx.pid \
+         --lock-path=/var/run/nginx.lock \
+         --http-client-body-temp-path=/var/cache/nginx/client_temp \
+         --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+         --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+         --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+         --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+         --user=nginx \
+         --group=nginx \
+         --with-compat \
+         --with-file-aio \
+         --with-threads \
          --with-http_addition_module \
          --with-http_auth_request_module \
          --with-http_dav_module \
-         --with-http_geoip_module \
+         --with-http_flv_module \
+         --with-http_gunzip_module \
          --with-http_gzip_static_module \
+         --with-http_mp4_module \
+         --with-http_random_index_module \
          --with-http_realip_module \
+         --with-http_secure_link_module \
+         --with-http_slice_module \
          --with-http_ssl_module \
          --with-http_stub_status_module \
          --with-http_sub_module \
-         --with-ipv6 \
-         --with-pcre-jit \
+         --with-http_v2_module \
+         --with-mail \
+         --with-mail_ssl_module \
+         --with-stream \
+         --with-stream_realip_module \
+         --with-stream_ssl_module \
+         --with-stream_ssl_preread_module \
+         --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
+         --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \
+         --add-module=/lua-nginx-module-${VER_LUA_NGINX_MODULE} \
+         --add-module=/ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
+         --with-http_dav_module \
+         --with-http_geoip_module \
       && make -j $(nproc) build \
       && make install \
 # Bring in tzdata so users could set the timezones through the environment
@@ -137,6 +171,7 @@ RUN set -x \
    && rm -rf /luajit2-${VER_LUAJIT} \
    && rm -rf /nginx-${VER_NGINX} \
    && rm -rf /ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
+   && yum clean all \
    && yum remove -y \
       gcc-c++ \
       gzip \
@@ -149,6 +184,8 @@ RUN set -x \
       make \
       tar \
       wget
+
+HEALTHCHECK --interval=30s --timeout=3s CMD curl --fail http://localhost/ || exit 1
 
 EXPOSE 80
 EXPOSE 443

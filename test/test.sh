@@ -5,12 +5,18 @@ source supported_versions
 function test() {
     DOCKER_TAG=$1
 
-    docker image ls -q fabiocicerchia/nginx:$DOCKER_TAG \
-        || (docker run -d --name nginx_lua_test -p 8080:80 -v $PWD/test/nginx.conf:/etc/nginx/nginx.conf fabiocicerchia/nginx-lua:$DOCKER_TAG \
-        && until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do echo -n '.'; sleep 0.5; done \
-        ; curl -v http://localhost:8080 | grep "Welcome to nginx" || exit 1 \
-        ; curl -v http://localhost:8080/lua_content | grep "Hello world" || exit 1 \
-        ; docker rm -f nginx_lua_test)
+    docker rm -f nginx_lua_test 2> /dev/null
+
+    FOUND=$(docker image ls -q fabiocicerchia/nginx-lua:$DOCKER_TAG | wc -l)
+    if [ $FOUND -ne 0 ]; then
+        docker run -d --name nginx_lua_test -p 8080:80 -v $PWD/test/nginx.conf:/etc/nginx/nginx.conf fabiocicerchia/nginx-lua:$DOCKER_TAG \
+            && until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do echo -n '.'; sleep 0.5; done \
+            ; curl -v http://localhost:8080 | grep "Welcome to nginx" || exit 1 \
+            ; curl -v http://localhost:8080/lua_content | grep "Hello world" || exit 1 \
+            ; docker rm -f nginx_lua_test
+     else
+        echo "Image not found: fabiocicerchia/nginx-lua:$DOCKER_TAG"
+     fi
 }
 
 function runtest() {
@@ -48,81 +54,37 @@ function runtest() {
 
 set -x
 
+OS=$1
+VERSIONS=()
+if [ "$OS" == "alpine" ]; then VERSIONS=$ALPINE
+elif [ "$OS" == "amazonlinux" ]; then VERSIONS=$AMAZONLINUX
+elif [ "$OS" == "centos" ]; then VERSIONS=$CENTOS
+elif [ "$OS" == "debian" ]; then VERSIONS=$DEBIAN
+elif [ "$OS" == "fedora" ]; then VERSIONS=$FEDORA
+elif [ "$OS" == "ubuntu" ]; then VERSIONS=$UBUNTU
+fi
+
 NLEN=${#NGINX[@]}
 for (( I=0; I<$NLEN; I++ )); do
     NGINX_VER="${NGINX[$I]}"
 
     VER_TAGS=0
-
-    OS=amazonlinux
-    DLEN=${#AMAZONLINUX[@]}
-    for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${AMAZONLINUX[$J]}"
-        OS_TAGS=0
-        if [ "$((J+1))" == "$DLEN" ]; then
-            OS_TAGS=1
-        fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
-    done
-
-    OS=centos
-    DLEN=${#CENTOS[@]}
-    for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${CENTOS[$J]}"
-        OS_TAGS=0
-        if [ "$((J+1))" == "$DLEN" ]; then
-            OS_TAGS=1
-        fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
-    done
-
-    OS=debian
-    DLEN=${#DEBIAN[@]}
-    for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${DEBIAN[$J]}"
-        OS_TAGS=0
-        if [ "$((J+1))" == "$DLEN" ]; then
-            OS_TAGS=1
-        fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
-    done
-
-    OS=fedora
-    DLEN=${#FEDORA[@]}
-    for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${FEDORA[$J]}"
-        OS_TAGS=0
-        if [ "$((J+1))" == "$DLEN" ]; then
-            OS_TAGS=1
-        fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
-    done
-
-    OS=ubuntu
-    DLEN=${#UBUNTU[@]}
-    for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${UBUNTU[$J]}"
-        OS_TAGS=0
-        if [ "$((J+1))" == "$DLEN" ]; then
-            OS_TAGS=1
-        fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
-    done
-
-    # Default image is Alpine
     if [ "$((I+1))" == "$NLEN" ]; then
         VER_TAGS=1
     fi
 
-    OS=alpine
-    DLEN=${#ALPINE[@]}
+    # Default image is Alpine
+    DEFAULT=0
+    if [ "$OS" == "alpine" ]; then DEFAULT=1; fi
+
+    DLEN=${#VERSIONS[@]}
     for (( J=0; J<$DLEN; J++ )); do
-        OS_VER="${ALPINE[$J]}"
+        OS_VER="${VERSIONS[$J]}"
         OS_TAGS=0
         if [ "$((J+1))" == "$DLEN" ]; then
             OS_TAGS=1
         fi
-        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS
+        runtest $NGINX_VER $OS $OS_VER $VER_TAGS $OS_TAGS $DEFAULT
     done
 
 done
