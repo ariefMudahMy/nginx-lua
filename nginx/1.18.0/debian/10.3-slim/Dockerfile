@@ -1,4 +1,4 @@
-FROM centos:6.10
+FROM debian:10.3-slim
 
 LABEL maintainer="info@fabiocicerchia.it"
 
@@ -9,12 +9,12 @@ ARG VCS_REF
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.name="fabiocicerchia/nginx-lua"
-LABEL org.label-schema.description="Nginx 1.18.0 with LUA support based on centos 6.10."
+LABEL org.label-schema.description="Nginx 1.18.0 with LUA support based on debian 10.3-slim."
 LABEL org.label-schema.url="https://github.com/fabiocicerchia/nginx-lua"
 LABEL org.label-schema.vcs-url="https://github.com/fabiocicerchia/nginx-lua"
 LABEL org.label-schema.vcs-ref=$VCS_REF
 LABEL org.label-schema.version=$BUILD_VERSION
-LABEL org.label-schema.docker.cmd="docker run -p 80:80 -d fabiocicerchia/nginx-lua:1.18.0-centos6.10"
+LABEL org.label-schema.docker.cmd="docker run -p 80:80 -d fabiocicerchia/nginx-lua:1.18.0-debian10.3-slim"
 
 # https://github.com/openresty/luajit2
 ENV VER_LUAJIT 2.1-20200102
@@ -45,18 +45,19 @@ ENV VER_DUMBINIT 1.2.2
 ENV LUAJIT_LIB /usr/local/lib
 ENV LUAJIT_INC /usr/local/include/luajit-2.1
 ENV LD_LIBRARY_PATH /usr/local/lib/:$LD_LIBRARY_PATH
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN set -x \
-   && yum makecache \
-   && yum install -y epel-release \
-   && yum install -y \
-      GeoIP-devel \
+   && apt-get update \
+   && apt-get install -y --no-install-recommends --no-install-suggests \
       ca-certificates \
-      openssl-devel \
-      pcre-devel \
-      zlib-devel \
-   && yum install -y \
-      gcc-c++ \
+      libgeoip-dev \
+      libpcre3-dev \
+      libssl-dev \
+      zlib1g-dev \
+   && apt-get install -y --no-install-recommends --no-install-suggests \
+      curl \
+      g++ \
       gzip \
       make \
       tar \
@@ -65,7 +66,7 @@ RUN set -x \
    && curl -Lo /luajit.tar.gz https://github.com/openresty/luajit2/archive/v${VER_LUAJIT}.tar.gz \
       && tar xvzf /luajit.tar.gz && rm /luajit.tar.gz \
       && cd /luajit2-${VER_LUAJIT} \
-      && make -j $(nproc) \
+      && make -j "$(nproc)" \
       && make install \
       && cd / \
 # LUA Resty Core
@@ -73,7 +74,7 @@ RUN set -x \
    && curl -Lo /lua-resty-core.tar.gz https://github.com/openresty/lua-resty-core/archive/v${VER_LUA_RESTY_CORE}.tar.gz \
       && tar xvzf /lua-resty-core.tar.gz && rm /lua-resty-core.tar.gz \
       && cd /lua-resty-core-${VER_LUA_RESTY_CORE} \
-      && make -j $(nproc) \
+      && make -j "$(nproc)" \
       && make install \
       && cd / \
 # LUA Resty LRUCache
@@ -81,7 +82,7 @@ RUN set -x \
    && curl -Lo /lua-resty-lrucache.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${VER_LUA_RESTY_LRUCACHE}.tar.gz \
       && tar xvzf /lua-resty-lrucache.tar.gz && rm /lua-resty-lrucache.tar.gz \
       && cd /lua-resty-lrucache-${VER_LUA_RESTY_LRUCACHE} \
-      && make -j $(nproc) \
+      && make -j "$(nproc)" \
       && make install \
       && cd / \
 # NGX Devel Kit
@@ -95,9 +96,8 @@ RUN set -x \
 # NGINX
 # ##############################################################################
 # create nginx user/group first, to be consistent throughout docker variants
-   && groupadd --system --gid 32548 nginx \
-   && useradd --system --gid nginx --no-create-home --home /nonexistent --comment "nginx user" --shell /bin/false --uid 32548 nginx \
-   && yum makecache \
+   && addgroup --system --gid 32548 nginx \
+   && adduser --system --disabled-login --ingroup nginx --no-create-home --home /nonexistent --gecos "nginx user" --shell /bin/false --uid 32548 nginx \
 # we're on an architecture upstream doesn't officially build for
 # let's build binaries from the published packaging sources
       && curl -Lo /nginx.tar.gz https://nginx.org/download/nginx-${VER_NGINX}.tar.gz \
@@ -154,23 +154,16 @@ RUN set -x \
          --add-module=/ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
          --with-http_dav_module \
          --with-http_geoip_module \
-      && make -j $(nproc) build \
+      && make -j "$(nproc)" build \
       && make install \
 # Bring in tzdata so users could set the timezones through the environment
 # variables
-   && yum install -y tzdata \
+   && apt-get install -y --no-install-recommends --no-install-suggests tzdata \
 # Bring in curl and ca-certificates to make registering on DNS SD easier
-   && yum install -y curl ca-certificates \
+   && apt-get install -y --no-install-recommends --no-install-suggests curl ca-certificates \
 # forward request and error logs to docker log collector
    && ln -sf /dev/stdout /var/log/nginx/access.log \
    && ln -sf /dev/stderr /var/log/nginx/error.log \
-# UID & GID
-# ##############################################################################
-   && chown -R 32548:32548 \
-      /etc/nginx \
-      /lua-nginx-module-${VER_LUA_NGINX_MODULE} \
-      /ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
-      /var/log/nginx \
 # dumb-init
 # ##############################################################################
    && curl -Lo /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${VER_DUMBINIT}/dumb-init_${VER_DUMBINIT}_x86_64 \
@@ -183,18 +176,14 @@ RUN set -x \
    && rm -rf /luajit2-${VER_LUAJIT} \
    && rm -rf /nginx-${VER_NGINX} \
    && rm -rf /ngx_devel_kit-${VER_NGX_DEVEL_KIT} \
-   && yum clean all \
-   && rm -rf /var/cache/yum \
-   && (yum remove -y \
-      gcc-c++ \
+   && apt-get autoremove -y \
+   && apt-get remove -y \
+      curl \
+      g++ \
       make \
-   || rpm -e --nodeps \
-      gcc-c++ \
-      make)
+   && rm -rf /var/lib/apt/lists/*
 
 HEALTHCHECK --interval=30s --timeout=3s CMD curl --fail http://localhost/ || exit 1
-
-USER nginx
 
 EXPOSE 80
 EXPOSE 443
