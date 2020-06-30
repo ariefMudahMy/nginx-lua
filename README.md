@@ -11,7 +11,7 @@
 ![Known Vulnerabilities](https://img.shields.io/badge/vulnerabilities-snyk-4b45a9)
 
 
-Nginx 1.17, 1.18 and 1.19 with LUA support based on Alpine Linux, Amazon Linux, CentOS, Debian, Fedora and Ubuntu.
+Nginx 1.19+ with LUA support based on Alpine Linux, Amazon Linux, CentOS, Debian, Fedora and Ubuntu.
 
 ## Quick reference
 
@@ -20,88 +20,20 @@ Nginx 1.17, 1.18 and 1.19 with LUA support based on Alpine Linux, Amazon Linux, 
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`1`,`1.19`,`1.19.0`,`1-alpine`,`1.19-alpine`,`1.19.0-alpine`,`1-alpine3.12.0`,`1.19-alpine3.12.0`,`1.19.0-alpine3.12.0`,`latest`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.12.0/Dockerfile)
-- [`1-ubuntu`,`1.19-ubuntu`,`1-ubuntu20.10`,`1.19.0-ubuntu`,`1.19-ubuntu20.10`,`1.19.0-ubuntu20.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/20.10/Dockerfile)
-- [`1-fedora`,`1-fedora33`,`1.19-fedora`,`1.19-fedora33`,`1.19.0-fedora`,`1.19.0-fedora33`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/33/Dockerfile)
-- [`1-debian`,`1.19-debian`,`1.19.0-debian`,`1-debian10.4-slim`,`1.19-debian10.4-slim`,`1.19.0-debian10.4-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/10.4-slim/Dockerfile)
-- [`1-centos`,`1.19-centos`,`1.19.0-centos`,`1-centos8.2.2004`,`1.19-centos8.2.2004`,`1.19.0-centos8.2.2004`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/centos/8.2.2004/Dockerfile)
-- [`1-amazonlinux`,`1.19-amazonlinux`,`1.19.0-amazonlinux`,`1-amazonlinux2.0.20180622.1`,`1.19-amazonlinux2.0.20180622.1`,`1.19.0-amazonlinux2.0.20180622.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20180622.1/Dockerfile)
+- [`1`,`1.19`,`1.19.0`,`1-alpine`,`1.19-alpine`,`1.19.0-alpine`,`1-alpine3.12.0`,`1-alpine3.12.0`,`1.19-alpine3.12.0`,`1.19.0-alpine3.12.0`,`latest`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.12.0/Dockerfile)
+- [`1-ubuntu`,`1.19-ubuntu`,`1-ubuntu20.10`,`1-ubuntu20.10`,`1.19.0-ubuntu`,`1.19-ubuntu20.10`,`1.19.0-ubuntu20.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/20.10/Dockerfile)
+- [`1-ubuntu20.04`,`1.19-ubuntu20.04`,`1.19.0-ubuntu20.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/20.04/Dockerfile)
+- [`1-fedora`,`1-fedora33`,`1-fedora33`,`1.19-fedora`,`1.19-fedora33`,`1.19.0-fedora`,`1.19.0-fedora33`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/33/Dockerfile)
+- [`1-fedora32`,`1.19-fedora32`,`1.19.0-fedora32`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/32/Dockerfile)
+- [`1-debian`,`1.19-debian`,`1.19.0-debian`,`1-debian10.4-slim`,`1-debian10.4-slim`,`1.19-debian10.4-slim`,`1.19.0-debian10.4-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/10.4-slim/Dockerfile)
+- [`1-debian10.3-slim`,`1.19-debian10.3-slim`,`1.19.0-debian10.3-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/10.3-slim/Dockerfile)
+- [`1-centos`,`1.19-centos`,`1.19.0-centos`,`1-centos8.2.2004`,`1-centos8.2.2004`,`1.19-centos8.2.2004`,`1.19.0-centos8.2.2004`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/centos/8.2.2004/Dockerfile)
+- [`1-centos8.1.1911`,`1.19-centos8.1.1911`,`1.19.0-centos8.1.1911`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/centos/8.1.1911/Dockerfile)
+- [`1-amazonlinux`,`1.19-amazonlinux`,`1.19.0-amazonlinux`,`1-amazonlinux2.0.20200406.0`,`1-amazonlinux2.0.20200406.0`,`1.19-amazonlinux2.0.20200406.0`,`1.19.0-amazonlinux2.0.20200406.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20200406.0/Dockerfile)
+- [`1-amazonlinux2.0.20200304.0`,`1.19-amazonlinux2.0.20200304.0`,`1.19.0-amazonlinux2.0.20200304.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20200304.0/Dockerfile)
+- [`1-alpine3.11.6`,`1.19-alpine3.11.6`,`1.19.0-alpine3.11.6`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.11.6/Dockerfile)
 
-<details><summary>More tags available</summary>
-
-- [`1.19-ubuntu20.04`,`1.19.0-ubuntu20.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/20.04/Dockerfile)
-- [`1.19-ubuntu19.10`,`1.19.0-ubuntu19.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/19.10/Dockerfile)
-- [`1.19-ubuntu18.04`,`1.19.0-ubuntu18.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/ubuntu/18.04/Dockerfile)
-- [`1.19-fedora32`,`1.19.0-fedora32`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/32/Dockerfile)
-- [`1.19-fedora31`,`1.19.0-fedora31`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/31/Dockerfile)
-- [`1.19-fedora30`,`1.19.0-fedora30`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/30/Dockerfile)
-- [`1.19-fedora29`,`1.19.0-fedora29`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/fedora/29/Dockerfile)
-- [`1.19-debian9.12-slim`,`1.19.0-debian9.12-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/9.12-slim/Dockerfile)
-- [`1.19-debian8.11-slim`,`1.19.0-debian8.11-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/8.11-slim/Dockerfile)
-- [`1.19-debian10.3-slim`,`1.19.0-debian10.3-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/10.3-slim/Dockerfile)
-- [`1.19-debian10.2-slim`,`1.19.0-debian10.2-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/debian/10.2-slim/Dockerfile)
-- [`1.19-centos8.1.1911`,`1.19.0-centos8.1.1911`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/centos/8.1.1911/Dockerfile)
-- [`1.19-centos7.8.2003`,`1.19.0-centos7.8.2003`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/centos/7.8.2003/Dockerfile)
-- [`1.19-amazonlinux2018.03.0.20200318.1`,`1.19.0-amazonlinux2018.03.0.20200318.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2018.03.0.20200318.1/Dockerfile)
-- [`1.19-amazonlinux2.0.20200406.0`,`1.19.0-amazonlinux2.0.20200406.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20200406.0/Dockerfile)
-- [`1.19-amazonlinux2.0.20181010`,`1.19.0-amazonlinux2.0.20181010`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20181010/Dockerfile)
-- [`1.19-amazonlinux2.0.20180827`,`1.19.0-amazonlinux2.0.20180827`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/amazonlinux/2.0.20180827/Dockerfile)
-- [`1.19-alpine3.11.6`,`1.19.0-alpine3.11.6`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.11.6/Dockerfile)
-- [`1.19-alpine3.11.5`,`1.19.0-alpine3.11.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.11.5/Dockerfile)
-- [`1.19-alpine3.10.5`,`1.19.0-alpine3.10.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.19.0/alpine/3.10.5/Dockerfile)
-- [`1.18-ubuntu`,`1.18.0-ubuntu`,`1.18-ubuntu20.10`,`1.18.0-ubuntu20.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/ubuntu/20.10/Dockerfile)
-- [`1.18-ubuntu20.04`,`1.18.0-ubuntu20.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/ubuntu/20.04/Dockerfile)
-- [`1.18-ubuntu19.10`,`1.18.0-ubuntu19.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/ubuntu/19.10/Dockerfile)
-- [`1.18-ubuntu18.04`,`1.18.0-ubuntu18.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/ubuntu/18.04/Dockerfile)
-- [`1.18-fedora`,`1.18-fedora33`,`1.18.0-fedora`,`1.18.0-fedora33`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/fedora/33/Dockerfile)
-- [`1.18-fedora32`,`1.18.0-fedora32`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/fedora/32/Dockerfile)
-- [`1.18-fedora31`,`1.18.0-fedora31`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/fedora/31/Dockerfile)
-- [`1.18-fedora30`,`1.18.0-fedora30`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/fedora/30/Dockerfile)
-- [`1.18-fedora29`,`1.18.0-fedora29`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/fedora/29/Dockerfile)
-- [`1.18-debian`,`1.18.0-debian`,`1.18-debian10.4-slim`,`1.18.0-debian10.4-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/debian/10.4-slim/Dockerfile)
-- [`1.18-debian9.12-slim`,`1.18.0-debian9.12-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/debian/9.12-slim/Dockerfile)
-- [`1.18-debian8.11-slim`,`1.18.0-debian8.11-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/debian/8.11-slim/Dockerfile)
-- [`1.18-debian10.3-slim`,`1.18.0-debian10.3-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/debian/10.3-slim/Dockerfile)
-- [`1.18-debian10.2-slim`,`1.18.0-debian10.2-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/debian/10.2-slim/Dockerfile)
-- [`1.18-centos`,`1.18.0-centos`,`1.18-centos8.2.2004`,`1.18.0-centos8.2.2004`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/centos/8.2.2004/Dockerfile)
-- [`1.18-centos8.1.1911`,`1.18.0-centos8.1.1911`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/centos/8.1.1911/Dockerfile)
-- [`1.18-centos7.8.2003`,`1.18.0-centos7.8.2003`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/centos/7.8.2003/Dockerfile)
-- [`1.18-amazonlinux`,`1.18.0-amazonlinux`,`1.18-amazonlinux2.0.20180622.1`,`1.18.0-amazonlinux2.0.20180622.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/amazonlinux/2.0.20180622.1/Dockerfile)
-- [`1.18-amazonlinux2018.03.0.20200318.1`,`1.18.0-amazonlinux2018.03.0.20200318.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/amazonlinux/2018.03.0.20200318.1/Dockerfile)
-- [`1.18-amazonlinux2.0.20200406.0`,`1.18.0-amazonlinux2.0.20200406.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/amazonlinux/2.0.20200406.0/Dockerfile)
-- [`1.18-amazonlinux2.0.20181010`,`1.18.0-amazonlinux2.0.20181010`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/amazonlinux/2.0.20181010/Dockerfile)
-- [`1.18-amazonlinux2.0.20180827`,`1.18.0-amazonlinux2.0.20180827`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/amazonlinux/2.0.20180827/Dockerfile)
-- [`1.18-alpine`,`1.18.0-alpine`,`1.18-alpine3.12.0`,`1.18.0-alpine3.12.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/alpine/3.12.0/Dockerfile)
-- [`1.18-alpine3.11.6`,`1.18.0-alpine3.11.6`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/alpine/3.11.6/Dockerfile)
-- [`1.18-alpine3.11.5`,`1.18.0-alpine3.11.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/alpine/3.11.5/Dockerfile)
-- [`1.18-alpine3.10.5`,`1.18.0-alpine3.10.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.18.0/alpine/3.10.5/Dockerfile)
-- [`1.17-ubuntu`,`1.17.10-ubuntu`,`1.17-ubuntu20.10`,`1.17.10-ubuntu20.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/ubuntu/20.10/Dockerfile)
-- [`1.17-ubuntu20.04`,`1.17.10-ubuntu20.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/ubuntu/20.04/Dockerfile)
-- [`1.17-ubuntu19.10`,`1.17.10-ubuntu19.10`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/ubuntu/19.10/Dockerfile)
-- [`1.17-ubuntu18.04`,`1.17.10-ubuntu18.04`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/ubuntu/18.04/Dockerfile)
-- [`1.17-fedora`,`1.17-fedora33`,`1.17.10-fedora`,`1.17.10-fedora33`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/fedora/33/Dockerfile)
-- [`1.17-fedora32`,`1.17.10-fedora32`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/fedora/32/Dockerfile)
-- [`1.17-fedora31`,`1.17.10-fedora31`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/fedora/31/Dockerfile)
-- [`1.17-fedora30`,`1.17.10-fedora30`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/fedora/30/Dockerfile)
-- [`1.17-fedora29`,`1.17.10-fedora29`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/fedora/29/Dockerfile)
-- [`1.17-debian`,`1.17.10-debian`,`1.17-debian10.4-slim`,`1.17.10-debian10.4-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/debian/10.4-slim/Dockerfile)
-- [`1.17-debian9.12-slim`,`1.17.10-debian9.12-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/debian/9.12-slim/Dockerfile)
-- [`1.17-debian8.11-slim`,`1.17.10-debian8.11-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/debian/8.11-slim/Dockerfile)
-- [`1.17-debian10.3-slim`,`1.17.10-debian10.3-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/debian/10.3-slim/Dockerfile)
-- [`1.17-debian10.2-slim`,`1.17.10-debian10.2-slim`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/debian/10.2-slim/Dockerfile)
-- [`1.17-centos`,`1.17.10-centos`,`1.17-centos8.2.2004`,`1.17.10-centos8.2.2004`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/centos/8.2.2004/Dockerfile)
-- [`1.17-centos8.1.1911`,`1.17.10-centos8.1.1911`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/centos/8.1.1911/Dockerfile)
-- [`1.17-centos7.8.2003`,`1.17.10-centos7.8.2003`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/centos/7.8.2003/Dockerfile)
-- [`1.17-amazonlinux`,`1.17.10-amazonlinux`,`1.17-amazonlinux2.0.20180622.1`,`1.17.10-amazonlinux2.0.20180622.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/amazonlinux/2.0.20180622.1/Dockerfile)
-- [`1.17-amazonlinux2018.03.0.20200318.1`,`1.17.10-amazonlinux2018.03.0.20200318.1`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/amazonlinux/2018.03.0.20200318.1/Dockerfile)
-- [`1.17-amazonlinux2.0.20200406.0`,`1.17.10-amazonlinux2.0.20200406.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/amazonlinux/2.0.20200406.0/Dockerfile)
-- [`1.17-amazonlinux2.0.20181010`,`1.17.10-amazonlinux2.0.20181010`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/amazonlinux/2.0.20181010/Dockerfile)
-- [`1.17-amazonlinux2.0.20180827`,`1.17.10-amazonlinux2.0.20180827`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/amazonlinux/2.0.20180827/Dockerfile)
-- [`1.17-alpine`,`1.17.10-alpine`,`1.17-alpine3.12.0`,`1.17.10-alpine3.12.0`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/alpine/3.12.0/Dockerfile)
-- [`1.17-alpine3.11.6`,`1.17.10-alpine3.11.6`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/alpine/3.11.6/Dockerfile)
-- [`1.17-alpine3.11.5`,`1.17.10-alpine3.11.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/alpine/3.11.5/Dockerfile)
-- [`1.17-alpine3.10.5`,`1.17.10-alpine3.10.5`](https://github.com/fabiocicerchia/nginx-lua/blob/master/nginx/1.17.10/alpine/3.10.5/Dockerfile)
-</details>
+**Note:** The full list of supported/unsupported tags can be found at https://github.com/fabiocicerchia/nginx-lua/tree/master/docs/TAGS.md.
 
 ## What is nginx?
 
@@ -130,12 +62,12 @@ Lua is a lightweight, high-level, multi-paradigm programming language designed p
 
  - [nginx](https://nginx.org/en/download.html)
  - Supported OS
-   - [Alpine Linux](https://hub.docker.com/_/alpine) (30-50MB)
-   - [Amazon Linux](https://hub.docker.com/_/amazonlinux) (~300MB)
-   - [CentOS](https://hub.docker.com/_/centos) (~300MB)
-   - [Debian](https://hub.docker.com/_/debian) (~250MB)
-   - [Fedora](https://hub.docker.com/_/fedora) (~300MB)
-   - [Ubuntu](https://hub.docker.com/_/ubuntu) (~300MB)
+   - [Alpine Linux](https://hub.docker.com/_/alpine) (~30MB)
+   - [Amazon Linux](https://hub.docker.com/_/amazonlinux) (~200MB)
+   - [CentOS](https://hub.docker.com/_/centos) (~250MB)
+   - [Debian](https://hub.docker.com/_/debian) (~150MB)
+   - [Fedora](https://hub.docker.com/_/fedora) (~250MB)
+   - [Ubuntu](https://hub.docker.com/_/ubuntu) (~200MB)
  - [OpenResty's Branch of LuaJIT 2](https://github.com/openresty/luajit2)
  - [Embed the Power of Lua into NGINX HTTP servers](https://github.com/openresty/lua-nginx-module)
  - [New FFI-based API for lua-nginx-module](https://github.com/openresty/lua-resty-core)
@@ -167,9 +99,62 @@ Lua is a lightweight, high-level, multi-paradigm programming language designed p
 
 ### Compiled Version Details
 
-```console
-configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' --add-module=/lua-nginx-module-0.10.15 --add-module=/ngx_devel_kit-0.3.1 --with-http_dav_module --with-http_geoip_module
+```bash
+configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --user=nginx --group=nginx --add-module=/lua-nginx-module-0.10.15 --add-module=/ngx_devel_kit-0.3.1 --with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-threads --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-rpath,/usr/local/lib -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'
 ```
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument.
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+| DOCKER_IMAGE | fabiocicerchia/nginx-lua | |
+| DOCKER_IMAGE_OS | alpine | The Docker image base to build `FROM`. |
+| DOCKER_IMAGE_TAG | 3.12.0 | The Docker image tag to build `FROM`. |
+| VER_LUAJIT | 2.1-20200102 | The version of LuaJIT to use. |
+| VER_LUA_NGINX_MODULE | 0.10.15 | The version of ngx_http_lua_module to use. |
+| VER_LUA_RESTY_CORE | 0.1.17 | The version of lua-resty-core to use. |
+| LUA_LIB_DIR | /usr/local/share/lua/5.1 | Path to Lua library directory. |
+| VER_LUA_RESTY_LRUCACHE | 0.09 | The version of lua-resty-lrucache to use. |
+| VER_NGX_DEVEL_KIT | 0.3.1 | The version of Nginx Development Kit to use. |
+| VER_NGINX | 1.19.0 | The version of nginx to use. |
+| NGINX_BUILD_CONFIG | --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --user=nginx --group=nginx --add-module=/lua-nginx-module-${VER_LUA_NGINX_MODULE} --add-module=/ngx_devel_kit-${VER_NGX_DEVEL_KIT} --with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-threads | Options to pass to nginx's `./configure` script. |
+| LUAJIT_LIB | /usr/local/lib | Tell nginx's build system where to find LuaJIT 2.0 |
+| LUAJIT_INC | /usr/local/include/luajit-2.1 | Tell nginx's build system where to find LuaJIT 2.0 |
+| LD_LIBRARY_PATH | /usr/local/lib/:$LD_LIBRARY_PATH | Search path environment variable for the linux shared library. |
+| BUILD_DEPS | Differs based on the distro | List of needed packages to build properly the software. |
+| NGINX_BUILD_DEPS | Differs based on the distro | List of needed packages to build properly nginx. |
+| BUILD_DATE | This label contains the Date/Time the image was built. |
+| VCS_REF | Identifier for the version of the source code from which this image was built. |
+| VER_DUMBINIT | 1.2.2 | The version of dumb-init to use. |
+| PKG_DEPS | Differs based on the distro | List of needed packages to run properly the software. |
+
+These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
+
+ - file-aio
+ - http_addition_module
+ - http_auth_request_module
+ - http_dav_module
+ - http_dav_module
+ - http_flv_module
+ - http_geoip_module
+ - http_gunzip_module
+ - http_gzip_static_module
+ - http_mp4_module
+ - http_random_index_module
+ - http_realip_module
+ - http_secure_link_module
+ - http_slice_module
+ - http_ssl_module
+ - http_stub_status_module
+ - http_sub_module
+ - http_v2_module
+ - mail
+ - mail_ssl_module
+ - stream
+ - stream_realip_module
+ - stream_ssl_module
+ - stream_ssl_preread_module
+ - thread
 
 ## Run Container
 
@@ -192,7 +177,41 @@ Provides Nginx + LUA. Uses Alpine, Amazon Linux, CentOS, Debian, Fedora, Ubuntu 
 ### `fabiocicerchia/nginx-lua:<version>-<distro><version>`
 Provides Nginx + LUA. Uses pinned version for Alpine, Amazon Linux, CentOS, Debian, Fedora, Ubuntu for base image.
 
-## Example
+## Image Labels
+
+The image builds are labeled with various information. Here's an example of printing the labels using jq:
+
+```bash
+$ docker pull fabiocicerchia/nginx-lua:1-alpine
+$ docker inspect fabiocicerchia/nginx-lua:1-alpine | jq '.[].Config.Labels'
+{
+  "maintainer": "Fabio Cicerchia <info@fabiocicerchia.it>",
+  "org.label-schema.build-date": "2020-06-27T20:53:15Z",
+  "org.label-schema.description": "Nginx 1.19.0 with LUA support based on alpine 3.12.0.",
+  "org.label-schema.docker.cmd": "docker run -p 80:80 -d fabiocicerchia/nginx-lua:1.19.0-alpine3.12.0",
+  "org.label-schema.name": "fabiocicerchia/nginx-lua",
+  "org.label-schema.schema-version": "1.0",
+  "org.label-schema.url": "https://github.com/fabiocicerchia/nginx-lua",
+  "org.label-schema.vcs-ref": "5b8a255",
+  "org.label-schema.vcs-url": "https://github.com/fabiocicerchia/nginx-lua",
+  "org.label-schema.version": "1.19.0-alpine3.12.0"
+}
+```
+
+| Label Name                         | Description             |
+:----------------------------------- |:----------------------- |
+| `maintainer`                       | Maintainer of the image |
+| `org.label-schema.build-date`      | This label contains the Date/Time the image was built. The value SHOULD be formatted according to RFC 3339. buildarg `BUILD_DATE` |
+| `org.label-schema.description`     | Text description of the image. May contain up to 300 characters. |
+| `org.label-schema.docker.cmd`      | How to run a container based on the image under the Docker runtime. |
+| `org.label-schema.name`            | buildarg `DOCKER_IMAGE` |
+| `org.label-schema.schema-version`  | This label SHOULD be present to indicate the version of Label Schema in use. |
+| `org.label-schema.url`             | URL of website with more information about the product or service provided by the container. |
+| `org.label-schema.vcs-ref`         | buildarg `VCS_REF` |
+| `org.label-schema.vcs-url`         | URL for the source code under version control from which this container image was built. |
+| `org.label-schema.version`         | Release identifier for the contents of the image. |
+
+## Examples
 
 ### Virtual Host
 
@@ -232,6 +251,16 @@ services:
 ```
 
 # License
+
+As with all Docker images, these likely also contain other software which may be under other licenses (such as Bash, etc from the base distribution, along with any direct or indirect dependencies of the primary software being contained).
+
+As for any pre-built image usage, it is the image user's responsibility to ensure that any use of this image complies with any relevant licenses for all software contained within.
+
+ - [Nginx License](https://nginx.org/LICENSE)
+ - [Lua License](https://www.lua.org/license.html)
+ - [OpenResty License](https://github.com/openresty/openresty#copyright--license)
+
+## `fabiocicerchia/nginx-lua`
 
 MIT License
 
