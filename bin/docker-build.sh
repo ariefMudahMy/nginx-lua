@@ -4,6 +4,7 @@ source supported_versions
 
 function docker_tag_exists() {
     curl --silent -f -lSL https://index.docker.io/v1/repositories/$1/tags/$2 > /dev/null
+    echo $?
 }
 
 function build() {
@@ -21,11 +22,11 @@ function build() {
     MINOR=$MAJOR.$(echo $NGINX_VER | cut -d '.' -f 2)
     PATCH=$NGINX_VER
 
-    #if docker_tag_exists fabiocicerchia/nginx-lua $PATCH-$OS$OS_VER; then
-    #    return
-    #fi
+    if [ "$FORCE" == "0" -a $(docker_tag_exists fabiocicerchia/nginx-lua $PATCH-$OS$OS_VER) == 0 ]; then
+        return
+    fi
 
-    TAGS="-t fabiocicerchia/nginx-lua:$PATCH-$OS$OS_VER"
+    TAGS=""
     if [ "$VER_TAGS$OS_TAGS$DEFAULT" == "111" ]; then
         TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MAJOR"
         TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MINOR"
@@ -42,14 +43,15 @@ function build() {
         TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MINOR-$OS"
         TAGS="$TAGS -t fabiocicerchia/nginx-lua:$PATCH-$OS"
     fi
-    TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MINOR-$OS$OS_VER"
 
-    BUILD_DATE=$(date +%Y%m%d%H%M%S)
-    BUILD_VERSION=$(date +%s)
+    TAGS="$TAGS -t fabiocicerchia/nginx-lua:$PATCH-$OS$OS_VER"
+    TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MINOR-$OS$OS_VER"
+    TAGS="$TAGS -t fabiocicerchia/nginx-lua:$MAJOR-$OS$OS_VER"
+
+    BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     VCS_REF=$(git rev-parse --short HEAD)
     time docker build \
         --build-arg BUILD_DATE=$BUILD_DATE \
-        --build-arg BUILD_VERSION=$BUILD_VERSION \
         --build-arg VCS_REF=$VCS_REF \
         $TAGS \
         -f $DOCKERFILE .
@@ -58,6 +60,10 @@ function build() {
 set -x
 
 OS=$1
+FORCE=0
+if [ "$2" == "1" ]; then
+    FORCE=1
+fi
 VERSIONS=()
 if [ "$OS" == "alpine" ]; then VERSIONS=("${ALPINE[@]}")
 elif [ "$OS" == "amazonlinux" ]; then VERSIONS=("${AMAZONLINUX[@]}")
