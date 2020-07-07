@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2086,SC2178,SC1091,SC2004
 
 source supported_versions
 
@@ -9,10 +10,10 @@ function init_dockerfile() {
     mkdir -p $DOCKERFILE_PATH 2> /dev/null
     cp tpl/Dockerfile.$OS $DOCKERFILE
 
-    sed -i "" "s/{{DOCKER_IMAGE}}/fabiocicerchia\/nginx-lua/" $DOCKERFILE
-    sed -i "" "s/{{DOCKER_IMAGE_OS}}/$OS/"                    $DOCKERFILE
-    sed -i "" "s/{{DOCKER_IMAGE_TAG}}/$OS_VER/"               $DOCKERFILE
-    sed -i "" "s/{{VER_NGINX}}/$NGINX_VER/"                   $DOCKERFILE
+    sed -i "s/{{DOCKER_IMAGE}}/fabiocicerchia\/nginx-lua/" $DOCKERFILE
+    sed -i "s/{{DOCKER_IMAGE_OS}}/$OS/"                    $DOCKERFILE
+    sed -i "s/{{DOCKER_IMAGE_TAG}}/$OS_VER/"               $DOCKERFILE
+    sed -i "s/{{VER_NGINX}}/$NGINX_VER/"                   $DOCKERFILE
 }
 
 set -x
